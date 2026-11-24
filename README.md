@@ -46,6 +46,13 @@ Use `enable` to bring it back, or `uninstall` to remove it.
 - The animation is slow and gentle. With Reduce Motion on, the scene shows as a still picture.
 - Message rows get near-solid backgrounds so text stays readable over the forest.
 
+## License
+
+The code is under the [MIT License](LICENSE). The artwork, everything in `art/`
+plus `hooks/forest.ts` (generated from it), is under
+[CC BY-NC 4.0](art/LICENSE): share and remix it with credit, but not for
+commercial use.
+
 ## Editing the art
 
 The scene lives in `art/`: `forest.svg`, `cat-left.svg` (the wizard) and
