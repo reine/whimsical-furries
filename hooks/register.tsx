@@ -102,8 +102,6 @@ const WHIMSICAL: ThemeSound = {
     layers: [
       // a hushed open fifth on E, like strings holding a note far away
       { wave: 'triangle', drone: true, notes: ['E2', 'B2'], gain: 0.022, filter: { type: 'lowpass', hz: 600 }, tremolo: { hz: 0.12, depth: 0.35 } },
-      // a whisper of breeze so the forest is still there
-      { wave: 'brown', drone: true, gain: 0.025, filter: { type: 'lowpass', hz: 300, to: 600 }, tremolo: { hz: 0.07, depth: 0.5 } },
       // celesta tunes, tiptoeing
       celesta(['E5', 'G5', 'B5', 'G5', 'A5', 'F#5', 'D#5', 'E5'], 0.2, 0.03, -0.3),
       celesta(['B5', 'C6', 'B5', 'A#5', 'B5', 'G5', 'E5', 'B4'], 0.2, 0.03, 0.3),
