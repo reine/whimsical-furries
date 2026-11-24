@@ -4,7 +4,9 @@ A cozy, whimsical theme for Claude. Install it as a Claude Code plugin and the
 Claude desktop app takes on an orchid and lavender look built on Catppuccin
 Macchiato, with a moonlit purple forest drifting behind your chats.
 
-![The Furries of Whimsical Forest: a moonlit purple forest with a mage cat in the bottom-left corner and a wizard cat in the bottom-right](docs/preview.png)
+![The Furries of Whimsical Forest: a mock chat window with orchid and lavender text over a moonlit purple forest, with a mage cat in the bottom-left corner and a wizard cat in the bottom-right](docs/preview.png)
+
+<sub>A mock-up: the conversation is made up.</sub>
 
 - **A soft dark palette:** purple-tinted surfaces, orchid accents and links,
   lavender highlights and warm peach lamplight. Body text meets WCAG AA
@@ -79,3 +81,5 @@ remix them with credit, but not for commercial use.
 The scene lives in `art/`: `forest.svg`, `cat-wizard.svg` and `cat-mage.svg`.
 After editing any of them, run `python3 art/compose.py` to rebuild
 `hooks/forest.ts`.
+`python3 art/mockup.py` then draws the README's mock-up, `docs/mockup.svg`,
+from the rebuilt scene; render it to `docs/preview.png` with any SVG viewer.
