@@ -115,13 +115,17 @@ def window() -> str:
         spans = ''.join(f'<tspan fill="{c}">{escape(t)}</tspan>' for t, c in row)
         parts.append(f'<text x="{col_x + 38}" y="{cy + 26 + i * 22}" font-family="{MONO}" font-size="13.5" xml:space="preserve">{spans}</text>')
 
-    # Prompt box
-    py = 770
-    parts.append(f'<rect x="{col_x}" y="{py}" width="{col_w}" height="92" rx="16" fill="{SURFACE0}" fill-opacity="0.78" stroke="{SURFACE3}"/>')
-    parts.append(text(col_x + 20, py + 36, 'Reply…', 15, MUTED))
-    parts.append(f'<circle cx="{col_x + col_w - 34}" cy="{py + 60}" r="16" fill="{ORCHID}"/>')
-    parts.append(f'<path d="M{col_x + col_w - 34} {py + 68} v-15 m-6 6 l6 -6 l6 6" fill="none" stroke="{SURFACE0}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>')
-    parts.append(text(col_x + 20, py + 66, '+', 20, MUTED, 300))
+    # Prompt box, as the app draws it: one dark row with a light edge, a +
+    # on the left and a plain white send arrow on the right, holding the
+    # theme's own command to switch to the musical soundscape.
+    py, ph = 800, 58
+    mid = py + ph / 2
+    parts.append(f'<rect x="{col_x - 20}" y="{py}" width="{col_w + 40}" height="{ph}" rx="18" fill="#15121e" fill-opacity="0.94" stroke="{TEXT2}" stroke-opacity="0.85" stroke-width="1.5"/>')
+    parts.append(f'<path d="M{col_x + 2} {mid} h16 M{col_x + 10} {mid - 8} v16" stroke="{TEXT2}" stroke-width="1.8" stroke-linecap="round"/>')
+    parts.append(text(col_x + 36, mid + 6, '/furries-sound whimsical', 17, TEXT))
+    parts.append(f'<rect x="{col_x + 36 + 214}" y="{mid - 11}" width="1.6" height="22" fill="{TEXT}"/>')
+    ax = col_x + col_w + 2
+    parts.append(f'<path d="M{ax} {mid + 9} v-18 m-7 7 l7 -7 l7 7" fill="none" stroke="#f4f0fb" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>')
 
     return '\n'.join(parts)
 
