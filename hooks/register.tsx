@@ -88,9 +88,8 @@ const COZY: ThemeSound = {
 // Whimsical: music more than a soundscape, in the spirit of a ballet's
 // sugar-sweet dances. Original tunes in E minor: a celesta tiptoeing in short
 // staccato notes and sliding down chromatically, pizzicato strings plucking
-// underneath, a flute trilling now and then and a harp sweeping up. A quiet
-// open fifth on E holds it together so passing notes that overlap still sit
-// right, and every bell is filtered so nothing rings sharp.
+// underneath, a flute trilling now and then and a harp sweeping up, over a
+// soft breeze. Every bell is filtered so nothing rings sharp.
 const celesta = (notes: readonly string[], step: number, scatter: number, pan = 0) =>
   ({ wave: 'bell', notes, step, scatter, gain: 0.055, pan, attack: 0.005, release: 0.45, filter: { type: 'lowpass', hz: 3200 } }) as const
 
@@ -100,8 +99,8 @@ const WHIMSICAL: ThemeSound = {
   ambience: {
     reverb: 0.55,
     layers: [
-      // a hushed open fifth on E, like strings holding a note far away
-      { wave: 'triangle', drone: true, notes: ['E2', 'B2'], gain: 0.022, filter: { type: 'lowpass', hz: 600 }, tremolo: { hz: 0.12, depth: 0.35 } },
+      // a soft breeze through the forest under the music
+      { wave: 'brown', drone: true, gain: 0.05, filter: { type: 'lowpass', hz: 300, to: 650 }, tremolo: { hz: 0.07, depth: 0.5 } },
       // celesta tunes, tiptoeing
       celesta(['E5', 'G5', 'B5', 'G5', 'A5', 'F#5', 'D#5', 'E5'], 0.2, 0.035, -0.3),
       celesta(['B5', 'C6', 'B5', 'A#5', 'B5', 'G5', 'E5', 'B4'], 0.2, 0.035, 0.3),
