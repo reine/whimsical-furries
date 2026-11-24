@@ -103,10 +103,13 @@ const WHIMSICAL: ThemeSound = {
       // a hushed open fifth on E, like strings holding a note far away
       { wave: 'triangle', drone: true, notes: ['E2', 'B2'], gain: 0.022, filter: { type: 'lowpass', hz: 600 }, tremolo: { hz: 0.12, depth: 0.35 } },
       // celesta tunes, tiptoeing
-      celesta(['E5', 'G5', 'B5', 'G5', 'A5', 'F#5', 'D#5', 'E5'], 0.2, 0.03, -0.3),
-      celesta(['B5', 'C6', 'B5', 'A#5', 'B5', 'G5', 'E5', 'B4'], 0.2, 0.03, 0.3),
-      celesta(['E6', 'D#6', 'D6', 'C#6', 'C6', 'B5', 'G5', 'E5'], 0.14, 0.025, 0),
-      celesta(['G5', 'F#5', 'E5', 'D#5', 'E5', 'F#5', 'G5', 'B5', 'E6'], 0.18, 0.025, -0.1),
+      celesta(['E5', 'G5', 'B5', 'G5', 'A5', 'F#5', 'D#5', 'E5'], 0.2, 0.035, -0.3),
+      celesta(['B5', 'C6', 'B5', 'A#5', 'B5', 'G5', 'E5', 'B4'], 0.2, 0.035, 0.3),
+      celesta(['E6', 'D#6', 'D6', 'C#6', 'C6', 'B5', 'G5', 'E5'], 0.14, 0.03, 0),
+      // between the tunes, a music box keeps turning very softly: single notes
+      // of the E minor chord, about one every second and a half, low enough to
+      // sit under everything else
+      { wave: 'bell', notes: ['E4', 'G4', 'B4', 'E5', 'G5', 'B4'], scatter: 0.7, gain: 0.014, attack: 0.01, release: 1.2, filter: { type: 'lowpass', hz: 1800 } },
       // pizzicato strings plucking a little figure underneath
       { wave: 'triangle', notes: ['E3', 'B2', 'E3', 'B2', 'G3', 'F#3', 'E3'], step: 0.3, scatter: 0.05, gain: 0.055, attack: 0.003, release: 0.14, filter: { type: 'lowpass', hz: 900 } },
       // a flute's quick trill and turn
