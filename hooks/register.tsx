@@ -64,8 +64,10 @@ const SOUND: ThemeSound = {
       // nearby pitches (in hertz, around A6 and B6) picked at random
       { wave: 'sine', notes: [1700, 1740, 1760, 1800, 1840], scatter: 0.35, gain: 0.025, pan: -0.7, attack: 0.03, release: 0.2, tremolo: { hz: 24, depth: 0.5 } },
       { wave: 'sine', notes: [1920, 1950, 1976, 2020, 2060], scatter: 0.28, gain: 0.022, pan: 0.7, attack: 0.03, release: 0.18, tremolo: { hz: 26, depth: 0.5 } },
-      // leaves rustling
-      { wave: 'crackle', scatter: 0.12, gain: 0.04, attack: 0.4, release: 1.6, filter: { type: 'bandpass', hz: 2800 } },
+      // leaves rustling: soft gusts of noise through the trees, one side then
+      // the other, each one brightening or settling as it passes
+      { wave: 'pink', scatter: 0.06, gain: 0.03, pan: -0.4, attack: 0.7, release: 1.6, filter: { type: 'bandpass', hz: 2400, to: 900 } },
+      { wave: 'pink', scatter: 0.06, gain: 0.03, pan: 0.4, attack: 0.8, release: 1.4, filter: { type: 'bandpass', hz: 1100, to: 2200 } },
       // a firefly chime now and then
       { wave: 'bell', notes: PENTATONIC, scatter: 0.07, gain: 0.07, attack: 0.01, release: 2.6 },
     ],
