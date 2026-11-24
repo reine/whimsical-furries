@@ -2,8 +2,9 @@ This repository uses two licenses:
 
 - The code is under the MIT License, below.
 - The artwork (everything in art/, hooks/forest.ts, which is generated
-  from it, and docs/preview.png) is under Creative Commons Attribution-NonCommercial 4.0
-  International (CC BY-NC 4.0). See art/LICENSE.
+  from it, and docs/preview.png) and the music (hooks/sounds.ts) are under
+  Creative Commons Attribution-NonCommercial 4.0 International
+  (CC BY-NC 4.0). See art/LICENSE.
 
 -------------------------------------------------------------------------------
 

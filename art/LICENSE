@@ -1,9 +1,10 @@
-The Furries of Whimsical Forest artwork
+The Furries of Whimsical Forest artwork and music
 Copyright (c) 2026 reine
 
 The artwork in this folder (forest.svg, cat-wizard.svg, cat-mage.svg and
-scene.svg), hooks/forest.ts, which is generated from it, and the preview
-image docs/preview.png, is licensed under
+scene.svg), hooks/forest.ts, which is generated from it, the preview
+image docs/preview.png, and the music and soundscapes in hooks/sounds.ts
+are licensed under
 the Creative Commons Attribution-NonCommercial 4.0 International License
 (CC BY-NC 4.0).
 

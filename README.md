@@ -29,7 +29,7 @@ Macchiato, with a moonlit purple forest drifting behind your chats.
   brings back the quiet night, and your choice is remembered for later
   sessions.
 
-All artwork is original vector art, drawn for this theme.
+All artwork is original vector art and all music is original, both made for this theme.
 
 ## Install
 
@@ -70,9 +70,9 @@ Use `enable` to bring it back, or `uninstall` to remove it.
 ## License
 
 The code is under the [MIT License](LICENSE). The artwork, everything in `art/`
-plus `hooks/forest.ts` (generated from it) and `docs/preview.png`, is under
-[CC BY-NC 4.0](art/LICENSE): share and remix it with credit, but not for
-commercial use.
+plus `hooks/forest.ts` (generated from it) and `docs/preview.png`, and the
+music in `hooks/sounds.ts` are under [CC BY-NC 4.0](art/LICENSE): share and
+remix them with credit, but not for commercial use.
 
 ## Editing the art
 
