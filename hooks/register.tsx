@@ -51,7 +51,7 @@ const LOOK: ThemeSetArgs = {
 // presses the speaker in the session's title bar.
 const PENTATONIC = ['D5', 'E5', 'F#5', 'A5', 'B5', 'D6'] as const
 
-const SOUND: ThemeSound = {
+const COZY: ThemeSound = {
   ambience: {
     reverb: 0.55,
     layers: [
@@ -85,6 +85,74 @@ const SOUND: ThemeSound = {
   },
 }
 
+// Whimsical: music more than a soundscape. A soft open-fifth pad holds D under
+// everything while little music-box tunes drift in now and then, with a
+// plucked bass walking below and sparkling runs up high. Every tune keeps to D
+// major pentatonic, so any two that overlap still sound right together, and
+// the bells are filtered so nothing rings sharp.
+const tune = (notes: readonly string[], scatter: number, pan = 0) =>
+  ({ wave: 'bell', notes, step: 0.26, scatter, gain: 0.05, pan, attack: 0.02, release: 1.2, filter: { type: 'lowpass', hz: 2600 } }) as const
+
+const WHIMSICAL: ThemeSound = {
+  ambience: {
+    reverb: 0.5,
+    layers: [
+      // a warm pad, D and A, swelling slowly
+      { wave: 'triangle', drone: true, notes: ['D3', 'A3'], gain: 0.025, filter: { type: 'lowpass', hz: 700 }, tremolo: { hz: 0.12, depth: 0.35 } },
+      // a whisper of breeze so the forest is still there
+      { wave: 'brown', drone: true, gain: 0.03, filter: { type: 'lowpass', hz: 300, to: 600 }, tremolo: { hz: 0.07, depth: 0.5 } },
+      // music-box tunes, one every few seconds on average
+      tune(['D5', 'F#5', 'A5', 'D6', 'B5', 'A5', 'F#5', 'A5'], 0.04, -0.3),
+      tune(['B5', 'A5', 'F#5', 'E5', 'D5', 'E5', 'F#5', 'D5'], 0.035, 0.3),
+      tune(['F#5', 'A5', 'B5', 'A5', 'F#5', 'E5', 'D5', 'E5'], 0.035, -0.1),
+      tune(['A4', 'D5', 'E5', 'F#5', 'E5', 'D5', 'B4', 'D5'], 0.03, 0.1),
+      // a plucked bass walking underneath
+      { wave: 'triangle', notes: ['D3', 'A3', 'B3', 'A3'], step: 0.52, scatter: 0.05, gain: 0.05, attack: 0.005, release: 0.4, filter: { type: 'lowpass', hz: 800 } },
+      // a sparkling run up high, like a firefly zipping past
+      { wave: 'bell', notes: ['D6', 'E6', 'F#6', 'A6'], step: 0.06, scatter: 0.03, gain: 0.022, pan: 0.5, attack: 0.01, release: 0.8, filter: { type: 'lowpass', hz: 3000 } },
+    ],
+  },
+  cues: {
+    // a little "bloop" up into a bell
+    send: { reverb: 0.4, layers: [
+      { wave: 'sine', notes: ['A4'], glide: 7, gain: 0.1, attack: 0.005, release: 0.15 },
+      { wave: 'bell', notes: ['A5', 'D6'], step: 0.1, gain: 0.16, release: 0.7, filter: { type: 'lowpass', hz: 3000 } },
+    ] },
+    // a happy music-box flourish
+    done: { reverb: 0.5, layers: [{ wave: 'bell', notes: ['D5', 'F#5', 'A5', 'B5', 'D6'], step: 0.09, gain: 0.18, release: 1.2, filter: { type: 'lowpass', hz: 3000 } }] },
+    // a tiny pluck
+    tool: { layers: [{ wave: 'triangle', notes: ['A5'], gain: 0.04, attack: 0.003, release: 0.07 }] },
+    // a curious "hm-m?"
+    ask: { reverb: 0.4, layers: [{ wave: 'bell', notes: ['A5', 'B5', 'A5'], step: 0.13, gain: 0.2, release: 0.8, filter: { type: 'lowpass', hz: 3000 } }] },
+    // a gentle "aww", sagging a little
+    error: { layers: [{ wave: 'triangle', notes: ['B4', 'F#4'], step: 0.2, glide: -1, gain: 0.16, release: 0.5, filter: { type: 'lowpass', hz: 1200 } }] },
+    // sparkles tumbling down
+    compact: { reverb: 0.5, layers: [{ wave: 'bell', notes: ['D6', 'B5', 'A5', 'F#5', 'E5', 'D5'], step: 0.05, gain: 0.12, release: 0.9, filter: { type: 'lowpass', hz: 3000 } }] },
+    click: { reverb: 0.5, layers: [{ wave: 'bell', notes: PENTATONIC, gain: 0.18, release: 1.0, filter: { type: 'lowpass', hz: 2600 } }] },
+  },
+}
+
+const SOUNDS = { cozy: COZY, whimsical: WHIMSICAL } as const
+type SoundName = keyof typeof SOUNDS
+const isSoundName = (value: unknown): value is SoundName => typeof value === 'string' && value in SOUNDS
+
+// Sets the whole look with the named sound. A build that takes no sound or
+// style refuses the whole set, so step down until one takes. Resolves to the
+// sound's refusal, if it was refused.
+const apply = async (set: (look: ThemeSetArgs) => Promise<unknown>, log: (line: string) => void, name: SoundName) => {
+  let refusal: string | undefined
+  for (const look of [{ ...LOOK, sound: SOUNDS[name] }, LOOK, COLORS]) {
+    try {
+      await set(look)
+      return refusal
+    } catch (error) {
+      refusal ??= String(error)
+      log(String(error))
+    }
+  }
+  return refusal
+}
+
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     const unpainted = problems.find(line => line.startsWith("Desktop won't paint"))
@@ -94,19 +162,56 @@ export const register: Register = on => {
     }
 
     // A theme set before the app window attaches still stands and draws once
-    // it does, so whether it is drawn yet needs no message. A build that takes
-    // no sound or style refuses the whole set, so step down until one takes.
-    for (const look of [{ ...LOOK, sound: SOUND }, LOOK, COLORS]) {
-      try {
-        await $.theme.set(look)
-        break
-      } catch (error) {
-        $.ui.log(String(error))
-      }
+    // it does, so whether it is drawn yet needs no message.
+    const saved = await $.store.get('soundscape')
+    const name = isSoundName(saved) ? saved : 'cozy'
+    const set = (look: ThemeSetArgs) => $.theme.set(look)
+    const log = (line: string) => $.ui.log(line)
+
+    // A whimsical sound the app refuses falls back to the cozy one.
+    if ((await apply(set, log, name)) !== undefined && name !== 'cozy') {
+      await apply(set, log, 'cozy')
     }
     $.ui.status(undefined)
 
+    await $.command.register({
+      name: 'furries-sound',
+      description: 'Pick the Whimsical Forest soundscape: cozy or whimsical',
+      argumentHint: 'cozy | whimsical',
+      immediate: true,
+    })
+
     return next(e)
+  })
+
+  // /furries-sound [cozy | whimsical]: switches the soundscape now and
+  // remembers it for later sessions. With no choice, says which is on.
+  on('command.run', { command: 'furries-sound' }, async ($, e) => {
+    const saved = await $.store.get('soundscape')
+    const current: SoundName = isSoundName(saved) ? saved : 'cozy'
+    const choice = e.args.trim().toLowerCase()
+
+    if (choice === '') {
+      return { text: `The soundscape is ${current}. Use /furries-sound cozy or /furries-sound whimsical to switch.` }
+    }
+
+    if (!isSoundName(choice)) {
+      return { text: `There's no "${choice}" soundscape. Pick cozy or whimsical.` }
+    }
+
+    const set = (look: ThemeSetArgs) => $.theme.set(look)
+    const log = (line: string) => $.ui.log(line)
+    const refusal = await apply(set, log, choice)
+
+    if (refusal !== undefined) {
+      await apply(set, log, current)
+
+      return { text: `The app couldn't play the ${choice} soundscape, so ${current} is still on. It said: ${refusal}` }
+    }
+
+    await $.store.set('soundscape', choice)
+
+    return { text: `Switched to the ${choice} soundscape. If the speaker in the title bar is off, press it to listen.` }
   })
 
   on('ui.render', { component: 'Backdrop' }, ($, e, next) => {
