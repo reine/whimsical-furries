@@ -28,7 +28,7 @@ def scene() -> str:
     """The composed scene at its 16:9 placement, as a nested <svg>."""
     s = (ROOT / 'art' / 'scene.svg').read_text()
     s = re.sub(r'@media[^{]*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}', '', s)
-    s = s.replace('<svg xmlns="http://www.w3.org/2000/svg"', f'<svg x="0" y="0" width="{W}" height="{H}"', 1)
+    s = s.replace('<svg xmlns="http://www.w3.org/2000/svg"', f'<svg id="scene" x="0" y="0" width="{W}" height="{H}"', 1)
     return s
 
 
@@ -114,6 +114,32 @@ def window() -> str:
     for i, row in enumerate(code):
         spans = ''.join(f'<tspan fill="{c}">{escape(t)}</tspan>' for t, c in row)
         parts.append(f'<text x="{col_x + 38}" y="{cy + 26 + i * 22}" font-family="{MONO}" font-size="13.5" xml:space="preserve">{spans}</text>')
+
+    # The next-step card the app shows when a turn ends on a question: a
+    # lighter frosted panel with a recap, the question and answer buttons.
+    ky, kh = 562, 214
+    parts.append(f'<defs><clipPath id="card"><rect x="{col_x}" y="{ky}" width="{col_w}" height="{kh}" rx="14"/></clipPath>'
+                 f'<filter id="frost" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="14"/></filter></defs>')
+    parts.append(f'<g clip-path="url(#card)"><use href="#scene" filter="url(#frost)"/></g>')
+    parts.append(f'<rect x="{col_x}" y="{ky}" width="{col_w}" height="{kh}" rx="14" fill="{SURFACE0}" fill-opacity="0.35"/>')
+    parts.append(f'<rect x="{col_x}" y="{ky}" width="{col_w}" height="{kh}" rx="14" fill="{TEXT2}" fill-opacity="0.13" stroke="{TEXT2}" stroke-opacity="0.32" stroke-width="1.2"/>')
+    parts.append(lines(col_x + 22, ky + 38, [
+        [('loadSettings() now reads the file once and caches it. All 42 tests', '')],
+        [('pass; nothing is committed yet.', '')],
+    ], fill=TEXT2))
+    parts.append(f'<path d="M{col_x + col_w - 36} {ky + 24} l12 12 m0 -12 l-12 12" stroke="{TEXT2}" stroke-width="1.8" stroke-linecap="round"/>')
+    parts.append(text(col_x + 22, ky + 118, 'Commit the change?', 15, TEXT))
+    # primary answer, light, with its shortcut
+    bx, by = col_x + 22, ky + 146
+    parts.append(f'<rect x="{bx}" y="{by}" width="150" height="40" rx="9" fill="#efe6fb"/>')
+    parts.append(text(bx + 16, by + 26, 'Commit', 16, SURFACE0, 500))
+    for i, cap in enumerate(['⌘', '↩']):
+        kx = bx + 86 + i * 28
+        parts.append(f'<rect x="{kx}" y="{by + 9}" width="23" height="22" rx="5" fill="none" stroke="{SURFACE0}" stroke-opacity="0.45"/>')
+        parts.append(text(kx + 11.5, by + 25, cap, 12, SURFACE0, 500, anchor='middle'))
+    # the other answer, quiet
+    parts.append(f'<rect x="{bx + 164}" y="{by}" width="98" height="40" rx="9" fill="{TEXT2}" fill-opacity="0.14"/>')
+    parts.append(text(bx + 164 + 49, by + 26, 'Not yet', 16, TEXT, 400, anchor='middle'))
 
     # Prompt box, as the app draws it: one dark row with a light edge, a +
     # on the left and a plain white send arrow on the right, holding the
