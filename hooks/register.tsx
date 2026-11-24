@@ -60,9 +60,10 @@ const SOUND: ThemeSound = {
       { wave: 'brown', drone: true, gain: 0.07, filter: { type: 'lowpass', hz: 300, to: 650 }, tremolo: { hz: 0.07, depth: 0.5 } },
       // a faint, warm hum under it all
       { wave: 'sine', drone: true, notes: ['D3', 'A3'], gain: 0.02, tremolo: { hz: 0.1, depth: 0.3 } },
-      // crickets, one far left and one far right
-      { wave: 'sine', notes: ['A6'], scatter: 0.35, gain: 0.035, pan: -0.7, attack: 0.01, release: 0.18, tremolo: { hz: 24, depth: 0.85 } },
-      { wave: 'sine', notes: ['B6'], scatter: 0.28, gain: 0.03, pan: 0.7, attack: 0.01, release: 0.16, tremolo: { hz: 26, depth: 0.85 } },
+      // crickets, one far left and one far right, each chirp at one of a few
+      // nearby pitches (in hertz, around A6 and B6) picked at random
+      { wave: 'sine', notes: [1700, 1740, 1760, 1800, 1840], scatter: 0.35, gain: 0.035, pan: -0.7, attack: 0.01, release: 0.18, tremolo: { hz: 24, depth: 0.85 } },
+      { wave: 'sine', notes: [1920, 1950, 1976, 2020, 2060], scatter: 0.28, gain: 0.03, pan: 0.7, attack: 0.01, release: 0.16, tremolo: { hz: 26, depth: 0.85 } },
       // leaves rustling
       { wave: 'crackle', scatter: 0.12, gain: 0.04, attack: 0.4, release: 1.6, filter: { type: 'bandpass', hz: 2800 } },
       // a firefly chime now and then
