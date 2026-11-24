@@ -23,10 +23,11 @@ Macchiato, with a moonlit purple forest drifting behind your chats.
   chimes also play when you send a message and when Claude finishes.
   Click the bare forest to play a note, low on the left and high on the right.
 - **Or something more musical:** type `/furries-sound whimsical` for little
-  music-box tunes drifting over a warm pad, a plucked bass walking underneath
-  and sparkling runs like fireflies zipping past, with playful chimes to
-  match. `/furries-sound cozy` brings back the quiet night, and your choice is
-  remembered for later sessions.
+  ballet-style tunes in E minor: a celesta tiptoeing in staccato steps,
+  pizzicato strings plucking underneath, a flute trilling now and then and a
+  harp sweeping up, with playful chimes to match. `/furries-sound cozy`
+  brings back the quiet night, and your choice is remembered for later
+  sessions.
 
 All artwork is original vector art, drawn for this theme.
 

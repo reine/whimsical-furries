@@ -85,50 +85,53 @@ const COZY: ThemeSound = {
   },
 }
 
-// Whimsical: music more than a soundscape. A soft open-fifth pad holds D under
-// everything while little music-box tunes drift in now and then, with a
-// plucked bass walking below and sparkling runs up high. Every tune keeps to D
-// major pentatonic, so any two that overlap still sound right together, and
-// the bells are filtered so nothing rings sharp.
-const tune = (notes: readonly string[], scatter: number, pan = 0) =>
-  ({ wave: 'bell', notes, step: 0.26, scatter, gain: 0.05, pan, attack: 0.02, release: 1.2, filter: { type: 'lowpass', hz: 2600 } }) as const
+// Whimsical: music more than a soundscape, in the spirit of a ballet's
+// sugar-sweet dances. Original tunes in E minor: a celesta tiptoeing in short
+// staccato notes and sliding down chromatically, pizzicato strings plucking
+// underneath, a flute trilling now and then and a harp sweeping up. A quiet
+// open fifth on E holds it together so passing notes that overlap still sit
+// right, and every bell is filtered so nothing rings sharp.
+const celesta = (notes: readonly string[], step: number, scatter: number, pan = 0) =>
+  ({ wave: 'bell', notes, step, scatter, gain: 0.055, pan, attack: 0.005, release: 0.45, filter: { type: 'lowpass', hz: 3200 } }) as const
+
+const E_MINOR = ['E5', 'F#5', 'G5', 'A5', 'B5', 'C6', 'D#6', 'E6'] as const
 
 const WHIMSICAL: ThemeSound = {
   ambience: {
-    reverb: 0.5,
+    reverb: 0.55,
     layers: [
-      // a warm pad, D and A, swelling slowly
-      { wave: 'triangle', drone: true, notes: ['D3', 'A3'], gain: 0.025, filter: { type: 'lowpass', hz: 700 }, tremolo: { hz: 0.12, depth: 0.35 } },
+      // a hushed open fifth on E, like strings holding a note far away
+      { wave: 'triangle', drone: true, notes: ['E2', 'B2'], gain: 0.022, filter: { type: 'lowpass', hz: 600 }, tremolo: { hz: 0.12, depth: 0.35 } },
       // a whisper of breeze so the forest is still there
-      { wave: 'brown', drone: true, gain: 0.03, filter: { type: 'lowpass', hz: 300, to: 600 }, tremolo: { hz: 0.07, depth: 0.5 } },
-      // music-box tunes, one every few seconds on average
-      tune(['D5', 'F#5', 'A5', 'D6', 'B5', 'A5', 'F#5', 'A5'], 0.04, -0.3),
-      tune(['B5', 'A5', 'F#5', 'E5', 'D5', 'E5', 'F#5', 'D5'], 0.035, 0.3),
-      tune(['F#5', 'A5', 'B5', 'A5', 'F#5', 'E5', 'D5', 'E5'], 0.035, -0.1),
-      tune(['A4', 'D5', 'E5', 'F#5', 'E5', 'D5', 'B4', 'D5'], 0.03, 0.1),
-      // a plucked bass walking underneath
-      { wave: 'triangle', notes: ['D3', 'A3', 'B3', 'A3'], step: 0.52, scatter: 0.05, gain: 0.05, attack: 0.005, release: 0.4, filter: { type: 'lowpass', hz: 800 } },
-      // a sparkling run up high, like a firefly zipping past
-      { wave: 'bell', notes: ['D6', 'E6', 'F#6', 'A6'], step: 0.06, scatter: 0.03, gain: 0.022, pan: 0.5, attack: 0.01, release: 0.8, filter: { type: 'lowpass', hz: 3000 } },
+      { wave: 'brown', drone: true, gain: 0.025, filter: { type: 'lowpass', hz: 300, to: 600 }, tremolo: { hz: 0.07, depth: 0.5 } },
+      // celesta tunes, tiptoeing
+      celesta(['E5', 'G5', 'B5', 'G5', 'A5', 'F#5', 'D#5', 'E5'], 0.2, 0.03, -0.3),
+      celesta(['B5', 'C6', 'B5', 'A#5', 'B5', 'G5', 'E5', 'B4'], 0.2, 0.03, 0.3),
+      celesta(['E6', 'D#6', 'D6', 'C#6', 'C6', 'B5', 'G5', 'E5'], 0.14, 0.025, 0),
+      celesta(['G5', 'F#5', 'E5', 'D#5', 'E5', 'F#5', 'G5', 'B5', 'E6'], 0.18, 0.025, -0.1),
+      // pizzicato strings plucking a little figure underneath
+      { wave: 'triangle', notes: ['E3', 'B2', 'E3', 'B2', 'G3', 'F#3', 'E3'], step: 0.3, scatter: 0.05, gain: 0.055, attack: 0.003, release: 0.14, filter: { type: 'lowpass', hz: 900 } },
+      // a flute's quick trill and turn
+      { wave: 'sine', notes: ['B5', 'C6', 'B5', 'C6', 'B5', 'A5', 'G5'], step: 0.08, scatter: 0.02, gain: 0.03, pan: 0.4, attack: 0.02, release: 0.25, tremolo: { hz: 5, depth: 0.15 } },
+      // a harp sweeping up, like a curtain rising
+      { wave: 'bell', notes: ['E4', 'G4', 'B4', 'E5', 'G5', 'B5', 'E6'], step: 0.05, scatter: 0.02, gain: 0.03, pan: -0.4, attack: 0.004, release: 1.0, filter: { type: 'lowpass', hz: 2800 } },
     ],
   },
   cues: {
-    // a little "bloop" up into a bell
-    send: { reverb: 0.4, layers: [
-      { wave: 'sine', notes: ['A4'], glide: 7, gain: 0.1, attack: 0.005, release: 0.15 },
-      { wave: 'bell', notes: ['A5', 'D6'], step: 0.1, gain: 0.16, release: 0.7, filter: { type: 'lowpass', hz: 3000 } },
-    ] },
-    // a happy music-box flourish
-    done: { reverb: 0.5, layers: [{ wave: 'bell', notes: ['D5', 'F#5', 'A5', 'B5', 'D6'], step: 0.09, gain: 0.18, release: 1.2, filter: { type: 'lowpass', hz: 3000 } }] },
-    // a tiny pluck
-    tool: { layers: [{ wave: 'triangle', notes: ['A5'], gain: 0.04, attack: 0.003, release: 0.07 }] },
-    // a curious "hm-m?"
-    ask: { reverb: 0.4, layers: [{ wave: 'bell', notes: ['A5', 'B5', 'A5'], step: 0.13, gain: 0.2, release: 0.8, filter: { type: 'lowpass', hz: 3000 } }] },
-    // a gentle "aww", sagging a little
-    error: { layers: [{ wave: 'triangle', notes: ['B4', 'F#4'], step: 0.2, glide: -1, gain: 0.16, release: 0.5, filter: { type: 'lowpass', hz: 1200 } }] },
-    // sparkles tumbling down
-    compact: { reverb: 0.5, layers: [{ wave: 'bell', notes: ['D6', 'B5', 'A5', 'F#5', 'E5', 'D5'], step: 0.05, gain: 0.12, release: 0.9, filter: { type: 'lowpass', hz: 3000 } }] },
-    click: { reverb: 0.5, layers: [{ wave: 'bell', notes: PENTATONIC, gain: 0.18, release: 1.0, filter: { type: 'lowpass', hz: 2600 } }] },
+    // two tiptoed celesta notes
+    send: { reverb: 0.45, layers: [{ wave: 'bell', notes: ['B5', 'E6'], step: 0.11, gain: 0.17, attack: 0.004, release: 0.5, filter: { type: 'lowpass', hz: 3200 } }] },
+    // a celesta flourish up to the top E
+    done: { reverb: 0.5, layers: [{ wave: 'bell', notes: ['E5', 'G5', 'B5', 'D#6', 'E6'], step: 0.09, gain: 0.18, release: 0.9, filter: { type: 'lowpass', hz: 3200 } }] },
+    // a single tiny pizzicato
+    tool: { layers: [{ wave: 'triangle', notes: ['B4'], gain: 0.045, attack: 0.003, release: 0.07 }] },
+    // a curious little turn
+    ask: { reverb: 0.45, layers: [{ wave: 'bell', notes: ['B5', 'C6', 'B5', 'A#5', 'B5'], step: 0.09, gain: 0.18, release: 0.6, filter: { type: 'lowpass', hz: 3200 } }] },
+    // a gentle chromatic sigh down
+    error: { layers: [{ wave: 'triangle', notes: ['G4', 'F#4', 'F4', 'E4'], step: 0.14, gain: 0.15, release: 0.4, filter: { type: 'lowpass', hz: 1200 } }] },
+    // the harp sweeping down
+    compact: { reverb: 0.5, layers: [{ wave: 'bell', notes: ['E6', 'B5', 'G5', 'E5', 'B4', 'G4', 'E4'], step: 0.05, gain: 0.12, release: 0.9, filter: { type: 'lowpass', hz: 2800 } }] },
+    // clicking the forest plays E minor, low on the left, high on the right
+    click: { reverb: 0.5, layers: [{ wave: 'bell', notes: E_MINOR, gain: 0.18, release: 0.8, filter: { type: 'lowpass', hz: 3200 } }] },
   },
 }
 
