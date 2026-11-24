@@ -68,8 +68,9 @@ const SOUND: ThemeSound = {
       // the other, each one brightening or settling as it passes
       { wave: 'pink', scatter: 0.06, gain: 0.03, pan: -0.4, attack: 0.7, release: 1.6, filter: { type: 'bandpass', hz: 2400, to: 900 } },
       { wave: 'pink', scatter: 0.06, gain: 0.03, pan: 0.4, attack: 0.8, release: 1.4, filter: { type: 'bandpass', hz: 1100, to: 2200 } },
-      // a firefly chime now and then
-      { wave: 'bell', notes: PENTATONIC, scatter: 0.07, gain: 0.07, attack: 0.01, release: 2.6 },
+      // a firefly chime now and then: an octave below the cues, its strike
+      // softened and its brightness filtered off so it glows rather than pings
+      { wave: 'bell', notes: ['D4', 'E4', 'F#4', 'A4', 'B4', 'D5'], scatter: 0.07, gain: 0.06, attack: 0.04, release: 2.6, filter: { type: 'lowpass', hz: 1400 } },
     ],
   },
   cues: {
