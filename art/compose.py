@@ -1,5 +1,5 @@
 # Builds hooks/forest.ts from the art files: the forest, with the wizard cat
-# pinned bottom-right and the lady mage pinned bottom-left.
+# pinned bottom-right and the mage cat pinned bottom-left.
 # Run: python3 art/compose.py
 #
 # The forest is drawn 1600x900 and scaled to cover the window, so a window
@@ -28,8 +28,8 @@ SPOTS = [
 
 # (file, class, side, size, how far its drawing reaches toward that edge)
 CATS = [
-    ('cat-lady.svg', 'ladyspot', 'left', 0.94, 12),
-    ('cat-left.svg', 'catspot', 'right', 1, 288),
+    ('cat-mage.svg', 'magespot', 'left', 0.94, 12),
+    ('cat-wizard.svg', 'wizardspot', 'right', 1, 288),
 ]
 
 def spot(aspect, y, s, side, k, reach):
