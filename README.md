@@ -17,6 +17,10 @@ Macchiato, with a moonlit violet forest drifting behind your chats.
   corners as the window resizes.
 - **Readable over the art:** frosted panels and near-solid message bubbles
   keep your conversation clear.
+- **A quiet night soundscape:** press the speaker in the session's title bar
+  for a soft breeze, distant crickets, rustling leaves and the odd firefly
+  chime, plus gentle chimes when you send a message and when Claude finishes.
+  Click the bare forest to play a note, low on the left and high on the right.
 
 All artwork is original vector art, drawn for this theme.
 
