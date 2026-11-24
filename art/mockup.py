@@ -121,8 +121,8 @@ def window() -> str:
     parts.append(f'<defs><clipPath id="card"><rect x="{col_x}" y="{ky}" width="{col_w}" height="{kh}" rx="14"/></clipPath>'
                  f'<filter id="frost" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="14"/></filter></defs>')
     parts.append(f'<g clip-path="url(#card)"><use href="#scene" filter="url(#frost)"/></g>')
-    parts.append(f'<rect x="{col_x}" y="{ky}" width="{col_w}" height="{kh}" rx="14" fill="{SURFACE0}" fill-opacity="0.35"/>')
-    parts.append(f'<rect x="{col_x}" y="{ky}" width="{col_w}" height="{kh}" rx="14" fill="{TEXT2}" fill-opacity="0.13" stroke="{TEXT2}" stroke-opacity="0.32" stroke-width="1.2"/>')
+    parts.append(f'<rect x="{col_x}" y="{ky}" width="{col_w}" height="{kh}" rx="14" fill="{SURFACE0}" fill-opacity="0.42"/>')
+    parts.append(f'<rect x="{col_x}" y="{ky}" width="{col_w}" height="{kh}" rx="14" fill="{TEXT2}" fill-opacity="0.09" stroke="{TEXT2}" stroke-opacity="0.32" stroke-width="1.2"/>')
     parts.append(lines(col_x + 22, ky + 38, [
         [('loadSettings() now reads the file once and caches it. All 42 tests', '')],
         [('pass; nothing is committed yet.', '')],
