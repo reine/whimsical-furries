@@ -2,11 +2,11 @@
 
 A cozy, whimsical theme for Claude. Install it as a Claude Code plugin and the
 Claude desktop app takes on an orchid and lavender look built on Catppuccin
-Macchiato, with a moonlit violet forest drifting behind your chats.
+Macchiato, with a moonlit purple forest drifting behind your chats.
 
-![The Furries of Whimsical Forest: a moonlit violet forest with a mage cat in the bottom-left corner and a wizard cat in the bottom-right](docs/preview.png)
+![The Furries of Whimsical Forest: a moonlit purple forest with a mage cat in the bottom-left corner and a wizard cat in the bottom-right](docs/preview.png)
 
-- **A soft dark palette:** violet-tinted surfaces, orchid accents and links,
+- **A soft dark palette:** purple-tinted surfaces, orchid accents and links,
   lavender highlights and warm peach lamplight. Body text meets WCAG AA
   contrast, with no harsh pure black or white.
 - **A living forest:** fireflies drift and twinkle, petals tumble down, mist

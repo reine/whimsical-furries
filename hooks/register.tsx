@@ -3,7 +3,7 @@ import type { Register, ThemeSetArgs, ThemeSound } from 'claude-code'
 import { FOREST } from './forest'
 import { makeColors } from './make-colors.js'
 
-// The Furries of Whimsical Forest. Catppuccin Macchiato, its gray-blues tinted violet, with an orchid accent
+// The Furries of Whimsical Forest. Catppuccin Macchiato, its gray-blues tinted purple, with an orchid accent
 // and lavender secondary. Dark only; no pure black or white.
 const { theme, problems } = makeColors({
   label: 'The Furries of Whimsical Forest',
@@ -116,6 +116,6 @@ export const register: Register = on => {
 
     const { Svg } = $.ui.resolve(e)
 
-    return <Svg source={FOREST} alt="A moonlit violet forest with fireflies drifting over a glowing path" isInteractive />
+    return <Svg source={FOREST} alt="A moonlit purple forest with fireflies drifting over a glowing path" isInteractive />
   })
 }
