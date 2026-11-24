@@ -1,0 +1,11 @@
+{
+  "name": "whimsical-furries",
+  "owner": { "name": "reine" },
+  "plugins": [
+    {
+      "name": "whimsical-furries",
+      "source": "./",
+      "description": "The Furries of Whimsical Forest: a cozy orchid theme for the Claude desktop app, with a moonlit forest and two wizard cats."
+    }
+  ]
+}
