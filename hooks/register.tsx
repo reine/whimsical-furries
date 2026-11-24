@@ -56,9 +56,10 @@ const SOUND: ThemeSound = {
     reverb: 0.55,
     layers: [
       // breeze through the trees, swelling slowly
-      { wave: 'pink', drone: true, gain: 0.16, filter: { type: 'lowpass', hz: 500, to: 1100 }, tremolo: { hz: 0.07, depth: 0.45 } },
-      // a low, warm hum under it all
-      { wave: 'sine', drone: true, notes: ['D3', 'A3'], gain: 0.05, tremolo: { hz: 0.1, depth: 0.3 } },
+      // (brown noise, low-passed, so it rolls rather than hisses)
+      { wave: 'brown', drone: true, gain: 0.07, filter: { type: 'lowpass', hz: 300, to: 650 }, tremolo: { hz: 0.07, depth: 0.5 } },
+      // a faint, warm hum under it all
+      { wave: 'sine', drone: true, notes: ['D3', 'A3'], gain: 0.02, tremolo: { hz: 0.1, depth: 0.3 } },
       // crickets, one far left and one far right
       { wave: 'sine', notes: ['A6'], scatter: 0.35, gain: 0.035, pan: -0.7, attack: 0.01, release: 0.18, tremolo: { hz: 24, depth: 0.85 } },
       { wave: 'sine', notes: ['B6'], scatter: 0.28, gain: 0.03, pan: 0.7, attack: 0.01, release: 0.16, tremolo: { hz: 26, depth: 0.85 } },
